@@ -6,12 +6,8 @@ param(
 )
 
 function DoBuild {
-    Write-Host 'doing a BUILD' -ForegroundColor Yellow
     $env:Path += "$env:MSVC_ROOT\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja"
-    Get-Location | Out-String
-    Get-ChildItem | Out-String
-
-    ninja.exe --verbose all
+    ninja.exe all >>out\build.log
 }
 
 function DoCopy {
