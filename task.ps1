@@ -31,8 +31,16 @@ function DoScan {
     Write-Output 'Root Dir'
     Write-Output '--------'
     Get-ChildItem c:\ | Out-String
-    Get-ChildItem "c:\Program Files" | Out-String
-    Get-ChildItem "c:\Program Files (x86)" | Out-String
+    Get-ChildItem 'c:\Program Files' | Out-String
+    Get-ChildItem 'c:\Program Files (x86)' | Out-String
+
+    Write-Output ''
+    Write-Output 'MSVC Versions'
+    Write-Output '-------------'
+    Set-Location 'c:\Program Files'
+    Get-ChildItem 'cl.exe' | Out-String
+    Set-Location 'c:\Program Files (x86)'
+    Get-ChildItem 'cl.exe' | Out-String
 }
 
 mkdir out -ErrorAction Ignore | Out-Null
