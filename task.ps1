@@ -28,20 +28,26 @@ function DoScan {
     Write-Output '----'
     Write-Output $env:Path.Split(';')
 
-    Write-Output ''
-    Write-Output 'Root Dir'
-    Write-Output '--------'
-    Get-ChildItem c:\ | Out-String
-    Get-ChildItem 'c:\Program Files' | Out-String
-    Get-ChildItem 'c:\Program Files (x86)' | Out-String
+    #Write-Output ''
+    #Write-Output 'Root Dir'
+    #Write-Output '--------'
+    #Get-ChildItem c:\ | Out-String
+    #Get-ChildItem 'c:\Program Files' | Out-String
+    #Get-ChildItem 'c:\Program Files (x86)' | Out-String
+
+    #Write-Output ''
+    #Write-Output 'MSVC Versions'
+    #Write-Output '-------------'
+    #Set-Location 'c:\Program Files'
+    #Get-ChildItem 'cl.exe' -Recurse -ErrorAction Ignore | Out-String
+    #Set-Location 'c:\Program Files (x86)'
+    #Get-ChildItem 'cl.exe' -Recurse -ErrorAction Ignore | Out-String
 
     Write-Output ''
-    Write-Output 'MSVC Versions'
-    Write-Output '-------------'
-    Set-Location 'c:\Program Files'
-    Get-ChildItem 'cl.exe' -Recurse -ErrorAction Ignore | Out-String
-    Set-Location 'c:\Program Files (x86)'
-    Get-ChildItem 'cl.exe' -Recurse -ErrorAction Ignore | Out-String
+    Write-Output 'Find Ninja'
+    Write-Output '----------'
+    Set-Location 'c:\'
+    Get-ChildItem 'ninja.exe' -Recurse -ErrorAction Ignore | Out-String
 }
 
 mkdir out -ErrorAction Ignore | Out-Null

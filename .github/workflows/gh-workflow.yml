@@ -24,11 +24,11 @@ jobs:
       #    path: |
       #      ~/AppData/Local/vcpkg
       #      ./build/cache
-      # - name: Scan
-      #   run: ./task.ps1 scan
-      #   shell: pwsh
-      - name: Build
-        run: ninja all
+      - name: Scan
+        run: ./task.ps1 scan
+        shell: pwsh
+      #- name: Build
+      #  run: ninja all
       - uses: actions/upload-artifact@v3.1.1
         with:
           path: ./out
