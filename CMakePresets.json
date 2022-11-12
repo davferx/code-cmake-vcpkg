@@ -28,7 +28,7 @@
             "hidden": true,
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/out/${presetName}",
-            "installDir": "$env{BIN_DIR}/../",
+            "installDir": "${sourceDir}/out/bin/${presetName}",
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "cl.exe",
                 "CMAKE_CXX_COMPILER": "cl.exe",

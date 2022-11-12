@@ -8,12 +8,6 @@ param(
 function DoBuild {
     Write-Host 'doing a BUILD' -ForegroundColor Yellow
     $env:Path += "$env:MSVC_ROOT\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja"
-    Write-Output $env:Path.Split(';')
-
-    Write-Output ''
-    Write-Output 'Path'
-    Write-Output '----'
-    Write-Output $env:Path.Split(';')
 
     ninja.exe all
 }

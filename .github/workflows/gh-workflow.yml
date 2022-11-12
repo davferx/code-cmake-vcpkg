@@ -30,6 +30,7 @@ jobs:
       #  shell: pwsh
       - name: Build
         run: ./task build
+        continue-on-error: true
       - uses: actions/upload-artifact@v3.1.1
         with:
           path: ./out
