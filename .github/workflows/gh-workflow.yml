@@ -22,7 +22,8 @@ jobs:
       #      ~/AppData/Local/vcpkg
       #      ./build/cache
       - name: Scan
-        run: tasks.cmd
+        run: task.ps1 scan > out\scan.log
+        shell: pwsh
       - name: Build
         run: ninja all
       - uses: actions/upload-artifact@v3.1.1
