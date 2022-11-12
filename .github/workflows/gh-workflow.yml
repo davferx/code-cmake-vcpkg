@@ -30,6 +30,7 @@ jobs:
       #  shell: pwsh
       - name: Build
         run: "%NINJA_CMD%" all
+        shell: cmd
       - uses: actions/upload-artifact@v3.1.1
         with:
           path: ./out
