@@ -22,7 +22,7 @@ jobs:
       #      ~/AppData/Local/vcpkg
       #      ./build/cache
       - name: Scan
-        run: task.ps1 scan > out\scan.log
+        run: ./task.ps1 scan > out\scan.log
         shell: pwsh
       #- name: Build
       #  run: ninja all
