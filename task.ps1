@@ -38,9 +38,9 @@ function DoScan {
     Write-Output 'MSVC Versions'
     Write-Output '-------------'
     Set-Location 'c:\Program Files'
-    Get-ChildItem 'cl.exe' | Out-String
+    Get-ChildItem 'cl.exe' -Recurse -ErrorAction Ignore | Out-String
     Set-Location 'c:\Program Files (x86)'
-    Get-ChildItem 'cl.exe' | Out-String
+    Get-ChildItem 'cl.exe' -Recurse -ErrorAction Ignore | Out-String
 }
 
 mkdir out -ErrorAction Ignore | Out-Null
