@@ -43,11 +43,11 @@ function DoScan {
     #Set-Location 'c:\Program Files (x86)'
     #Get-ChildItem 'cl.exe' -Recurse -ErrorAction Ignore | Out-String
 
-    Write-Output ''
-    Write-Output 'Find Ninja'
-    Write-Output '----------'
-    Set-Location 'c:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja'
-    .\ninja.exe --version
+    #Write-Output ''
+    #Write-Output 'Find Ninja'
+    #Write-Output '----------'
+    #Set-Location 'c:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja'
+    #.\ninja.exe --version
     #Get-ChildItem 'ninja.exe' -Recurse -ErrorAction Ignore | Out-String
 }
 
