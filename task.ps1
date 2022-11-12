@@ -14,7 +14,8 @@ function DoCopy {
 }
 
 function DoClean {
-    Write-Host 'doing a CLEAN' -ForegroundColor Yellow
+    Remove-Item .\.ninja_log -ErrorAction Ignore
+    remove-item out -Recurse -Force -ErrorAction Ignore
 }
 
 function DoScan {

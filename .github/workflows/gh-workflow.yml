@@ -6,6 +6,9 @@ name: main
 
 on: [push, workflow_dispatch]
 
+env:
+  MSVC_ROOT: C:\Program Files\Microsoft Visual Studio\2022\Enterprise
+
 defaults:
   run:
     shell: cmd

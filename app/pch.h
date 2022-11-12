@@ -2,7 +2,9 @@
 
 #pragma warning(push)
 #pragma warning(disable : 4355) // 'this': used in base member initializer list
+#pragma warning(disable : 4738) // storing 32-bit float result in memory, possible loss of performance
 #pragma warning(disable : 5204) // class has virtual functions, but its trivial destructor is not virtual
+#pragma warning(disable : 5262) // implicit fall-through occurs here
 
 #include <algorithm>
 #include <any>
