@@ -30,7 +30,7 @@ build out\x86-debug\app\code-cmake-vcpkg.exe : docmd out/x86-debug/build.ninja
 build out\x86-release\app\code-cmake-vcpkg.exe : docmd out/x86-release/build.ninja
     docmd = cd out/x86-release && ninja >build.log
 
-# The configuration files
+# The test run and output files
 build out/x64-test/build.ninja : docmd out/. CMakeLists.txt CMakePresets.json
     docmd = cmake --preset x64-test
 

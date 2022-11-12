@@ -7,5 +7,3 @@ target_link_libraries(code-cmake-vcpkg PRIVATE
     cxxopts::cxxopts
     rapidjson
 )
-
-install(TARGETS code-cmake-vcpkg)

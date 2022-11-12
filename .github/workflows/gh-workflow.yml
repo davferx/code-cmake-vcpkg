@@ -14,18 +14,18 @@ jobs:
   buildAndTest:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout
-      - uses: actions/cache
-        with:
-          key: 220109a
-          path: |
-            ~/AppData/Local/vcpkg
-            ./build/cache
+      - uses: actions/checkout@2
+      #- uses: actions/cache@3
+      #  with:
+      #    key: 221111a
+      #    path: |
+      #      ~/AppData/Local/vcpkg
+      #      ./build/cache
+      - name: Scan
+        run: tasks.cmd
       - name: Build
         run: ninja all
-      - uses: actions/upload-artifact
-        if: always()
+      - uses: actions/upload-artifact@3
         with:
-          name: artifacts
-          path: artifacts
+          path: ./out
           retention-days: 3
