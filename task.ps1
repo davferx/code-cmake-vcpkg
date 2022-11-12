@@ -35,9 +35,11 @@ function DoScan {
     Get-ChildItem "c:\Program Files (x86)" | Out-String
 }
 
+mkdir out -ErrorAction Ignore | Out-Null
+
 switch ($Cmd.ToLower()) {
     'build' { DoBuild }
     'copy' { DoCopy }
     'clean' { DoClean }
-    'scan' { DoScan }
+    'scan' { DoScan | Out-File 'out\scan.log' }
 }
