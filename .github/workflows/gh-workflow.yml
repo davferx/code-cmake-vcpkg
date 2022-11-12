@@ -1,0 +1,31 @@
+# https://docs.github.com/en/actions
+# https://github.com/marketplace?type=actions
+# https://github.com/orgs/actions/repositories?q=&type=all&language=&sort=name
+
+name: main
+
+on: [push, workflow_dispatch]
+
+defaults:
+  run:
+    shell: cmd
+
+jobs:
+  buildAndTest:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout
+      - uses: actions/cache
+        with:
+          key: 220109a
+          path: |
+            ~/AppData/Local/vcpkg
+            ./build/cache
+      - name: Build
+        run: ninja all
+      - uses: actions/upload-artifact
+        if: always()
+        with:
+          name: artifacts
+          path: artifacts
+          retention-days: 3

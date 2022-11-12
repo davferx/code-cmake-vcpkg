@@ -1,0 +1,60 @@
+rule docmd
+    command = cmd /c $docmd
+
+build out/. : docmd
+    docmd = mkdir out || echo directory out exits
+
+# The configuration files
+build out/x64-debug/build.ninja : docmd out/. CMakeLists.txt CMakePresets.json
+    docmd = cmake --preset x64-debug
+
+build out/x64-release/build.ninja : docmd out/. CMakeLists.txt CMakePresets.json
+    docmd = cmake --preset x64-release
+
+build out/x86-debug/build.ninja : docmd out/. CMakeLists.txt CMakePresets.json
+    docmd = cmake --preset x86-debug
+
+build out/x86-release/build.ninja : docmd out/. CMakeLists.txt CMakePresets.json
+    docmd = cmake --preset x86-release
+
+# The final exe files
+build out\x64-debug\app\code-cmake-vcpkg.exe : docmd out/x64-debug/build.ninja
+    docmd = cd out/x64-debug && ninja >build.log
+
+build out\x64-release\app\code-cmake-vcpkg.exe : docmd out/x64-release/build.ninja
+    docmd = cd out/x64-release && ninja >build.log
+
+build out\x86-debug\app\code-cmake-vcpkg.exe : docmd out/x86-debug/build.ninja
+    docmd = cd out/x86-debug && ninja >build.log
+
+build out\x86-release\app\code-cmake-vcpkg.exe : docmd out/x86-release/build.ninja
+    docmd = cd out/x86-release && ninja >build.log
+
+# The configuration files
+build out/x64-test/build.ninja : docmd out/. CMakeLists.txt CMakePresets.json
+    docmd = cmake --preset x64-test
+
+build out\x64-test\app\code-cmake-vcpkg.exe : docmd out/x64-test/build.ninja
+    docmd = cd out/x64-test && ninja
+
+build out\x64-test\app\test.log : docmd out\x64-test\app\code-cmake-vcpkg.exe
+    docmd = cd out/x64-test/app && code-cmake-vcpkg.exe -r XML -o test.log
+
+build test : docmd out\x64-test\app\code-cmake-vcpkg.exe
+    docmd = cd out/x64-test/app && code-cmake-vcpkg.exe
+
+build testlog: phony out\x64-test\app\test.log
+
+build x64d: phony out\x64-debug\app\code-cmake-vcpkg.exe
+
+build x64r: phony out\x64-release\app\code-cmake-vcpkg.exe
+
+build x64t: phony out\x64-test\app\code-cmake-vcpkg.exe
+
+build x86d: phony out\x86-debug\app\code-cmake-vcpkg.exe
+
+build x86r: phony out\x86-release\app\code-cmake-vcpkg.exe
+
+build all: phony testlog x64d x64r x64t x86d x86r
+
+default test
