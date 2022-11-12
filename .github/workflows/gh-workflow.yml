@@ -16,6 +16,8 @@ defaults:
 
 jobs:
   buildAndTest:
+    env:
+      PATH: $PATH;C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3.0.1
@@ -29,7 +31,7 @@ jobs:
       #  run: ./task.ps1 scan
       #  shell: pwsh
       - name: Build
-        run: "%NINJA_CMD%" all
+        run: ninja all
         shell: cmd
       - uses: actions/upload-artifact@v3.1.1
         with:
