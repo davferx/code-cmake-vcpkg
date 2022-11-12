@@ -46,8 +46,9 @@ function DoScan {
     Write-Output ''
     Write-Output 'Find Ninja'
     Write-Output '----------'
-    Set-Location 'c:\'
-    Get-ChildItem 'ninja.exe' -Recurse -ErrorAction Ignore | Out-String
+    Set-Location 'c:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja'
+    .\ninja.exe --version
+    #Get-ChildItem 'ninja.exe' -Recurse -ErrorAction Ignore | Out-String
 }
 
 mkdir out -ErrorAction Ignore | Out-Null

@@ -8,6 +8,7 @@ on: [push, workflow_dispatch]
 
 env:
   MSVC_ROOT: C:\Program Files\Microsoft Visual Studio\2022\Enterprise
+  PATH: $PATH;$MSVC_ROOT\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja
 
 defaults:
   run:
