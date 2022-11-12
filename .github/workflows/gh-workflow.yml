@@ -23,8 +23,8 @@ jobs:
       #      ./build/cache
       - name: Scan
         run: tasks.cmd
-      - name: Build
-        run: ninja all
+      #- name: Build
+      #  run: ninja all
       - uses: actions/upload-artifact@v3.1.1
         with:
           path: ./out
