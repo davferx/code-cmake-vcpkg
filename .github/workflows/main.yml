@@ -18,22 +18,19 @@ jobs:
   buildAndTest:
     runs-on: windows-latest
     steps:
-      #- uses: actions/checkout@v3.0.1
       - uses: actions/checkout@v3
-      #- uses: actions/cache@3
-      #  with:
-      #    key: 221111a
-      #    path: |
-      #      ~/AppData/Local/vcpkg
-      #      ./build/cache
-      #- name: Scan
-      #  run: ./task.ps1 scan
-      #  shell: pwsh
+      - name: Pre-scan
+        run: ./task list
+      - uses: actions/cache@3
+        with:
+          key: 221111a
+          path: ~/AppData/Local/vcpkg
       - name: Build
         run: ./task build
         continue-on-error: true
-      #- uses: actions/upload-artifact@v3.1.1
       - uses: actions/upload-artifact@v3
         with:
           path: ./out/artifact
           retention-days: 2
+      - name: POST-scan
+        run: ./task list

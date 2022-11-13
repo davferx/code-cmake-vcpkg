@@ -1,7 +1,7 @@
 # Task to be run during the build process
 param(
     [Parameter(Mandatory = $True)]
-    [ValidateSet('build', 'clean', 'cbuild', 'scan')]
+    [ValidateSet('build', 'clean', 'cbuild', 'scan', 'list')]
     [string]$Cmd
 )
 
@@ -21,9 +21,15 @@ function DoClean {
     remove-item out -Recurse -Force -ErrorAction Ignore
 }
 
+function DoList {
+    Write-Host 'Scanning vcpkg cache files' -ForegroundColor Yellow
+    Get-ChildItem $env:LOCALAPPDATA\vcpkg -Recurse | Select-Object VersionInfo
+}
+
 switch ($Cmd.ToLower()) {
     'build' { DoBuild }
     'cbuild' { DoCBuild }
     'clean' { DoClean }
     'scan' { DoScan | Out-File 'out\scan.log' }
+    'list' { DoList }
 }
