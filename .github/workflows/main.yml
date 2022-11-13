@@ -18,7 +18,8 @@ jobs:
   buildAndTest:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3.0.1
+      #- uses: actions/checkout@v3.0.1
+      - uses: actions/checkout@v3
       #- uses: actions/cache@3
       #  with:
       #    key: 221111a
@@ -31,7 +32,8 @@ jobs:
       - name: Build
         run: ./task build
         continue-on-error: true
-      - uses: actions/upload-artifact@v3.1.1
+      #- uses: actions/upload-artifact@v3.1.1
+      - uses: actions/upload-artifact@v3
         with:
           path: ./out/artifact
-          retention-days: 3
+          retention-days: 2
