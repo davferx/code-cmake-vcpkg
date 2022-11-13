@@ -33,5 +33,5 @@ jobs:
         continue-on-error: true
       - uses: actions/upload-artifact@v3.1.1
         with:
-          path: ./out
+          path: ./out/artifact
           retention-days: 3

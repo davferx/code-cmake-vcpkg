@@ -1,17 +1,19 @@
 # Task to be run during the build process
 param(
     [Parameter(Mandatory = $True)]
-    [ValidateSet('build', 'copy', 'clean', 'scan')]
+    [ValidateSet('build', 'clean', 'cbuild', 'scan')]
     [string]$Cmd
 )
 
 function DoBuild {
     $env:Path += "$env:MSVC_ROOT\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja"
-    ninja.exe all >>out\build.log
+    mkdir out -ErrorAction Ignore | Out-Null
+    ninja.exe all >out\build.log
 }
 
-function DoCopy {
-    Write-Host 'doing a COPY' -ForegroundColor Yellow
+function DoCBuild {
+    DoClean
+    DoBuild
 }
 
 function DoClean {
@@ -52,11 +54,10 @@ function DoScan {
     #Get-ChildItem 'ninja.exe' -Recurse -ErrorAction Ignore | Out-String
 }
 
-mkdir out -ErrorAction Ignore | Out-Null
 
 switch ($Cmd.ToLower()) {
     'build' { DoBuild }
-    'copy' { DoCopy }
+    'cbuild' { DoCBuild }
     'clean' { DoClean }
     'scan' { DoScan | Out-File 'out\scan.log' }
 }

@@ -24,42 +24,58 @@ build out/x86-release/build.ninja : domsvc out/. CMakeLists.txt CMakePresets.jso
     docmd = x86 && cmake --preset x86-release
 
 # The final exe files
-build out\x64-debug\app\code-cmake-vcpkg.exe : domsvc out/x64-debug/build.ninja
-    docmd = amd64 && cd out/x64-debug && ninja >>build.log
+build out/x64-debug/app/code-cmake-vcpkg.exe : domsvc out/x64-debug/build.ninja
+    docmd = amd64 && cd out/x64-debug && ninja -v >build.log
+    restat = 1
 
-build out\x64-test\app\code-cmake-vcpkg.exe : domsvc out/x64-test/build.ninja
-    docmd = amd64 && cd out/x64-test && ninja >>build.log
+build out/x64-test/app/code-cmake-vcpkg.exe : domsvc out/x64-test/build.ninja
+    docmd = amd64 && cd out/x64-test && ninja -v >build.log
+    restat = 1
 
-build out\x64-release\app\code-cmake-vcpkg.exe : domsvc out/x64-release/build.ninja
-    docmd = amd64 && cd out/x64-release && ninja >>build.log
+build out/x64-release/app/code-cmake-vcpkg.exe : domsvc out/x64-release/build.ninja
+    docmd = amd64 && cd out/x64-release && ninja >build.log
+    restat = 1
 
-build out\x86-debug\app\code-cmake-vcpkg.exe : domsvc out/x86-debug/build.ninja
-    docmd = x86 && cd out/x86-debug && ninja >>build.log
+build out/x86-debug/app/code-cmake-vcpkg.exe : domsvc out/x86-debug/build.ninja
+    docmd = x86 && cd out/x86-debug && ninja >build.log
+    restat = 1
 
-build out\x86-release\app\code-cmake-vcpkg.exe : domsvc out/x86-release/build.ninja
-    docmd = x86 && cd out/x86-release && ninja >>build.log
+build out/x86-release/app/code-cmake-vcpkg.exe : domsvc out/x86-release/build.ninja
+    docmd = x86 && cd out/x86-release && ninja >build.log
+    restat = 1
 
 # Run the tests
-build out\x64-test\app\test.log : docmd out\x64-test\app\code-cmake-vcpkg.exe
+build out/x64-test/app/test.log : docmd out/x64-test/app/code-cmake-vcpkg.exe
     docmd = cd out/x64-test/app && code-cmake-vcpkg.exe -r XML -o test.log
+    restat = 1
+
+# Place the artifacts
+build out/artifact/x64-test/app/test.log : docmd allout
+    docmd = robocopy out out/artifact code-cmake-vcpkg.exe build.log test.log /S /Z /NDL /XD artifact || echo %errorlevel%
+    restat = 1
+
+    # docmd = robocopy out out/artifact code-cmake-vcpkg.exe build.log test.log /S /Z /NDL /XD artifact || echo %errorlevel%
+    # && copy /y out\build.log out\artifact\build.log
 
 # Shortcut build targets
-build test : docmd out\x64-test\app\code-cmake-vcpkg.exe
-    docmd = cd out/x64-test/app && code-cmake-vcpkg.exe
+build x64d: phony out/x64-debug/app/code-cmake-vcpkg.exe
 
-build testlog: phony out\x64-test\app\test.log
+build x64r: phony out/x64-release/app/code-cmake-vcpkg.exe
 
-build x64d: phony out\x64-debug\app\code-cmake-vcpkg.exe
+build x64t: phony out/x64-test/app/code-cmake-vcpkg.exe
 
-build x64r: phony out\x64-release\app\code-cmake-vcpkg.exe
+build x86d: phony out/x86-debug/app/code-cmake-vcpkg.exe
 
-build x64t: phony out\x64-test\app\code-cmake-vcpkg.exe
+build x86r: phony out/x86-release/app/code-cmake-vcpkg.exe
 
-build x86d: phony out\x86-debug\app\code-cmake-vcpkg.exe
+build test : phony out/x64-test/app/test.log
 
-build x86r: phony out\x86-release\app\code-cmake-vcpkg.exe
+build allout : phony x64d x64r x64t x86d x86r test
 
-build all: phony testlog x64d x64r x64t x86d x86r
+build artifact : phony out/artifact/x64-test/app/test.log
+
+# High level targets
+build all: phony artifact
 
 build play: docmd
     docmd = ""%MSVC_ROOT%\Common7\Tools\VsDevCmd.bat"" -arch=amd64 -host_arch=amd64 && cl.exe && where cl.exe
