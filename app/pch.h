@@ -85,7 +85,6 @@
 #include <spanstream>
 #include <sstream>
 #include <stack>
-#include <stacktrace>
 #include <stdexcept>
 #include <stop_token>
 #include <streambuf>
