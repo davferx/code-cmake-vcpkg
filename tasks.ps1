@@ -7,8 +7,13 @@ param(
 
 function DoBuild {
     mkdir out\artifact -ErrorAction Ignore | Out-Null
-    $env:Path = "$env:CLANG_ROOT;$env:MSVC_ROOT\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja;" + $env:Path
-    ninja.exe all >out\build.log
+    $env:Path = "$env:CLANG_ROOT;$env:MSVC_ROOT\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja;$env:Path"
+    Write-Output 'building'
+    Write-Output $env:Path.Split(';')
+    Get-Command ninja | Format-List
+    Get-Command clang++ | Format-List
+    ninja.exe all
+    # >out\build.log
 }
 
 function DoCBuild {
