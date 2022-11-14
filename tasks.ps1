@@ -22,16 +22,18 @@ function DoClean {
 }
 
 function DoScan {
-    mkdir out\artifact -ErrorAction Ignore | Out-Null
     Write-Host 'Scanning' -ForegroundColor Yellow
     Get-ChildItem 'C:\Program Files\LLVM\bin' -Recurse | Format-List FullName
     &'C:\Program Files\LLVM\bin\clang++.exe' --version
-    Get-ChildItem "C:\*exe" -Recurse -ErrorAction Ignore | Where-Object Name -Match "^(cl|clang\+\+|cmake|gcc|ninja)\.exe$" | Format-List FullName | Tee-Object out\artifact\scan.log
+    Get-ChildItem "C:\*exe" -Recurse -ErrorAction Ignore | Where-Object Name -Match "^(cl|clang\+\+|cmake|gcc|ninja)\.exe$" | Format-List FullName
 }
 
 switch ($Cmd.ToLower()) {
     'build' { DoBuild }
     'cbuild' { DoCBuild }
-    'clean' { DoClean }
+    'clean' {
+        mkdir out\artifact -ErrorAction Ignore | Out-Null
+        DoClean >out\artifact\scan.log
+    }
     'scan' { DoScan }
 }
