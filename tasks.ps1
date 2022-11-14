@@ -66,10 +66,10 @@ function DoScan {
     Write-Output '-------------'
     cmd.exe /c dir "c:\msys64" /ogn
 
-    Write-Output ''
-    Write-Output 'Compilers'
-    Write-Output '---------'
-    cmd.exe /c "dir c:\*.exe /s/b | grep -iE ""[\](cl|clang\+\+|cmake|gcc|ninja)\.exe$"""
+    # Write-Output ''
+    # Write-Output 'Compilers'
+    # Write-Output '---------'
+    # cmd.exe /c "dir c:\*.exe /s/b | grep -iE ""[\](cl|clang\+\+|cmake|gcc|ninja)\.exe$"""
 }
 
 switch ($Cmd.ToLower()) {

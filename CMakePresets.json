@@ -24,18 +24,29 @@
     ],
     "configurePresets": [
         {
-            "name": "mingw-base",
+            "name": "base",
             "hidden": true,
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/out/${presetName}",
             "installDir": "${sourceDir}/out/artifact/${presetName}",
             "cacheVariables": {
-                "CMAKE_C_COMPILER": "clang.exe",
-                "CMAKE_CXX_COMPILER": "clang++.exe",
+                "CMAKE_C_COMPILER": "cl.exe",
+                "CMAKE_CXX_COMPILER": "cl.exe",
                 "CMAKE_CXX_EXTENSIONS": "OFF",
                 "CMAKE_CXX_STANDARD_REQUIRED": "ON",
                 "CMAKE_CXX_STANDARD": "20",
                 "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake",
+                "VCPKG_HOST_TRIPLET": "x64-windows",
+                "VCPKG_TARGET_TRIPLET": "x64-windows"
+            }
+        },
+        {
+            "name": "mingw-base",
+            "inherits": "base",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "clang.exe",
+                "CMAKE_CXX_COMPILER": "clang++.exe",
                 "VCPKG_HOST_TRIPLET": "x64-mingw-dynamic",
                 "VCPKG_TARGET_TRIPLET": "x64-mingw-dynamic"
             },
@@ -68,23 +79,13 @@
             },
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
-                "MY_CXX_FLAGS": "-pedantic -Wall -Werror -D_DEBUG"
+                "MY_CXX_FLAGS": "-pedantic -Wall -Werror -DNDEBUG"
             }
         },
         {
             "name": "windows-base",
+            "inherits": "base",
             "hidden": true,
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/out/${presetName}",
-            "installDir": "${sourceDir}/out/artifact/${presetName}",
-            "cacheVariables": {
-                "CMAKE_C_COMPILER": "cl.exe",
-                "CMAKE_CXX_COMPILER": "cl.exe",
-                "CMAKE_CXX_EXTENSIONS": "OFF",
-                "CMAKE_CXX_STANDARD_REQUIRED": "ON",
-                "CMAKE_CXX_STANDARD": "20",
-                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake"
-            },
             "condition": {
                 "type": "equals",
                 "lhs": "${hostSystemName}",
@@ -124,7 +125,7 @@
             "inherits": "x64-debug",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
-                "MY_CXX_FLAGS": "/Wall /WX /wd4710 /wd4711 /NDEBUG"
+                "MY_CXX_FLAGS": "/Wall /WX /wd4710 /wd4711 /DNDEBUG"
             }
         },
         {
@@ -137,7 +138,9 @@
             },
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
-                "MY_CXX_FLAGS": "/Wall /WX /wd4710 /wd4711 /D_DEBUG"
+                "MY_CXX_FLAGS": "/Wall /WX /wd4710 /wd4711 /D_DEBUG",
+                "VCPKG_HOST_TRIPLET": "x86-windows",
+                "VCPKG_TARGET_TRIPLET": "x86-windows"
             }
         },
         {
@@ -146,47 +149,9 @@
             "inherits": "x86-debug",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
-                "MY_CXX_FLAGS": "/Wall /WX /wd4710 /wd4711 /NDEBUG"
-            }
-        },
-        {
-            "name": "linux-debug",
-            "displayName": "Linux Debug",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/out/build/${presetName}",
-            "installDir": "${sourceDir}/out/install/${presetName}",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
-            },
-            "condition": {
-                "type": "equals",
-                "lhs": "${hostSystemName}",
-                "rhs": "Linux"
-            },
-            "vendor": {
-                "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
-                    "sourceDir": "$env{HOME}/.vs/$ms{projectDirName}"
-                }
-            }
-        },
-        {
-            "name": "macos-debug",
-            "displayName": "macOS Debug",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/out/build/${presetName}",
-            "installDir": "${sourceDir}/out/install/${presetName}",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
-            },
-            "condition": {
-                "type": "equals",
-                "lhs": "${hostSystemName}",
-                "rhs": "Darwin"
-            },
-            "vendor": {
-                "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
-                    "sourceDir": "$env{HOME}/.vs/$ms{projectDirName}"
-                }
+                "MY_CXX_FLAGS": "/Wall /WX /wd4710 /wd4711 /DNDEBUG",
+                "VCPKG_HOST_TRIPLET": "x86-windows",
+                "VCPKG_TARGET_TRIPLET": "x86-windows"
             }
         }
     ]
