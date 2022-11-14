@@ -100,7 +100,6 @@ build artifact : phony out/artifact/x64-test/app/test.log
 # High level targets
 build all: phony artifact
 
-build play: docmd
-    docmd = ""%MSVC_ROOT%\Common7\Tools\VsDevCmd.bat"" -arch=amd64 -host_arch=amd64 && cl.exe && where cl.exe
+build play: phony m64d m64r
 
 default test
