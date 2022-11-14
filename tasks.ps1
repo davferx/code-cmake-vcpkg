@@ -6,8 +6,8 @@ param(
 )
 
 function DoBuild {
-    $env:Path += "$env:MSVC_ROOT\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja"
-    mkdir out -ErrorAction Ignore | Out-Null
+    mkdir out\artifact -ErrorAction Ignore | Out-Null
+    $env:Path = "$env:CLANG_ROOT;$env:MSVC_ROOT\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja;" + $env:Path
     ninja.exe all >out\build.log
 }
 
@@ -22,10 +22,9 @@ function DoClean {
 }
 
 function DoScan {
-    mkdir out -ErrorAction Ignore | Out-Null
+    mkdir out\artifact -ErrorAction Ignore | Out-Null
     Write-Host 'Scanning' -ForegroundColor Yellow
     Get-ChildItem C:\*exe -Recurse -ErrorAction Ignore | Where-Object Name -Match "^(cl|clang\+\+|cmake|gcc|ninja)\.exe$" | Format-Table FullName | Out-String | Tee-Object out\artifact\scan.log
-    # Get-ChildItem $env:LOCALAPPDATA\vcpkg -Recurse | Select-Object VersionInfo
 }
 
 switch ($Cmd.ToLower()) {

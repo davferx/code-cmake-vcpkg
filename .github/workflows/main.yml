@@ -24,9 +24,9 @@ jobs:
           key: 221111a
           path: ~/AppData/Local/vcpkg
       - name: Scan for compilers
-        run: ./Task scan
+        run: ./tasks scan
       #- name: Build
-      #  run: ./Task build
+      #  run: ./tasks build
       #  continue-on-error: true
       - uses: actions/upload-artifact@v3
         with:
