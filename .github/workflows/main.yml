@@ -8,7 +8,7 @@ on: [push, workflow_dispatch]
 
 env:
   MSVC_ROOT: C:\Program Files\Microsoft Visual Studio\2022\Enterprise
-  NINJA_CMD: C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja\ninja.exe
+  CLANG_ROOT: C:\tools\msys64\mingw64\bin
 
 defaults:
   run:
