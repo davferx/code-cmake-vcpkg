@@ -24,7 +24,7 @@ function DoClean {
 function DoScan {
     mkdir out\artifact -ErrorAction Ignore | Out-Null
     Write-Host 'Scanning' -ForegroundColor Yellow
-    Get-ChildItem 'C:\Program Files\LLVM\bin\clang++.exe' -Recurse | Format-List FullName
+    Get-ChildItem 'C:\Program Files\LLVM\bin' -Recurse | Format-List FullName
     &'C:\Program Files\LLVM\bin\clang++.exe' --version
     Get-ChildItem "C:\*exe" -Recurse -ErrorAction Ignore | Where-Object Name -Match "^(cl|clang\+\+|cmake|gcc|ninja)\.exe$" | Format-List FullName | Tee-Object out\artifact\scan.log
 }
