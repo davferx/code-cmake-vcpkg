@@ -11,9 +11,12 @@ function DoBuildInt {
     Write-Output $env:Path.Split(';')
     Get-Command ninja | Format-List
     Get-Command clang++ | Format-List
-    cmd.exe /c dir C:\msys64\*.exe /s/b/a-d
-    cmd.exe /c dir "C:\Program Files\LLVM\*.exe" /s/b/a-d
-    ninja.exe play
+    Get-Command gcc | Format-List
+    ninja.exe --version
+    clang++.exe --version
+    gcc.exe --version
+
+    ninja.exe all
     cmd.exe /c "robocopy out out/artifact code-cmake-vcpkg.exe code-cmake-vcpkg.pdb build.log test.log /S /Z /NDL /XD artifact || echo %errorlevel%"
 }
 
