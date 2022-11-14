@@ -23,14 +23,12 @@ jobs:
         with:
           key: 221111a
           path: ~/AppData/Local/vcpkg
-      - name: Pre-scan
-        run: ./task list
-      - name: Build
-        run: ./task build
-        continue-on-error: true
+      - name: Scan for compilers
+        run: ./Task scan
+      #- name: Build
+      #  run: ./Task build
+      #  continue-on-error: true
       - uses: actions/upload-artifact@v3
         with:
           path: ./out/artifact
           retention-days: 2
-      - name: POST-scan
-        run: ./task list

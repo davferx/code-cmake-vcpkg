@@ -21,15 +21,16 @@ function DoClean {
     remove-item out -Recurse -Force -ErrorAction Ignore
 }
 
-function DoList {
-    Write-Host 'Scanning vcpkg cache files' -ForegroundColor Yellow
-    Get-ChildItem $env:LOCALAPPDATA\vcpkg -Recurse | Select-Object VersionInfo
+function DoScan {
+    mkdir out -ErrorAction Ignore | Out-Null
+    Write-Host 'Scanning' -ForegroundColor Yellow
+    Get-ChildItem C:\*exe -Recurse | Where-Object Name -Match "^(cl|clang\+\+|cmake|gcc|ninja)\.exe$" | Format-Table FullName | Tee-Object out\scan.log
+    # Get-ChildItem $env:LOCALAPPDATA\vcpkg -Recurse | Select-Object VersionInfo
 }
 
 switch ($Cmd.ToLower()) {
     'build' { DoBuild }
     'cbuild' { DoCBuild }
     'clean' { DoClean }
-    'scan' { DoScan | Out-File 'out\scan.log' }
-    'list' { DoList }
+    'scan' { DoScan }
 }
