@@ -24,7 +24,9 @@ function DoClean {
 function DoScan {
     mkdir out\artifact -ErrorAction Ignore | Out-Null
     Write-Host 'Scanning' -ForegroundColor Yellow
-    Get-ChildItem C:\*exe -Recurse -ErrorAction Ignore | Where-Object Name -Match "^(cl|clang\+\+|cmake|gcc|ninja)\.exe$" | Format-Table FullName | Out-String | Tee-Object out\artifact\scan.log
+    Get-ChildItem 'C:\Program Files\LLVM\bin\clang++.exe' -Recurse | Format-List FullName
+    &'C:\Program Files\LLVM\bin\clang++.exe' --version
+    Get-ChildItem "C:\*exe" -Recurse -ErrorAction Ignore | Where-Object Name -Match "^(cl|clang\+\+|cmake|gcc|ninja)\.exe$" | Format-List FullName | Tee-Object out\artifact\scan.log
 }
 
 switch ($Cmd.ToLower()) {
