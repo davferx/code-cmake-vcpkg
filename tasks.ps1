@@ -31,9 +31,9 @@ function DoScan {
 switch ($Cmd.ToLower()) {
     'build' { DoBuild }
     'cbuild' { DoCBuild }
-    'clean' {
+    'clean' { DoClean }
+    'scan' {
         mkdir out\artifact -ErrorAction Ignore | Out-Null
-        DoClean >out\artifact\scan.log
+        DoScan >out\artifact\scan.log
     }
-    'scan' { DoScan }
 }
