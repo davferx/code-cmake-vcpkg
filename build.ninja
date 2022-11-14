@@ -67,14 +67,6 @@ build out/x64-test/app/test.log : docmd out/x64-test/app/code-cmake-vcpkg.exe
     docmd = cd out/x64-test/app && code-cmake-vcpkg.exe -r XML -o test.log
     restat = 1
 
-# Place the artifacts
-#build out/artifact/x64-test/app/test.log : docmd allout
-#    docmd = robocopy out out/artifact code-cmake-vcpkg.exe code-cmake-vcpkg.pdb build.log test.log /S /Z /NDL /XD artifact || echo %errorlevel%
-#    restat = 1
-
-    # docmd = robocopy out out/artifact code-cmake-vcpkg.exe build.log test.log /S /Z /NDL /XD artifact || echo %errorlevel%
-    # && copy /y out\build.log out\artifact\build.log
-
 # Shortcut build targets
 build m64d: phony out/x64-mclang-dbg/app/code-cmake-vcpkg.exe
 
@@ -92,8 +84,6 @@ build w86d: phony out/x86-debug/app/code-cmake-vcpkg.exe
 build w86r: phony out/x86-release/app/code-cmake-vcpkg.exe
 
 build test : phony out/x64-test/app/test.log
-
-#build artifact : phony out/artifact/x64-test/app/test.log
 
 # High level targets
 build all : phony m64d m64r w64d w64r w64t w86d w86r test
