@@ -22,10 +22,54 @@ function DoClean {
 }
 
 function DoScan {
-    Write-Host 'Scanning' -ForegroundColor Yellow
-    Get-ChildItem 'C:\Program Files\LLVM\bin' -Recurse | Format-List FullName
-    &'C:\Program Files\LLVM\bin\clang++.exe' --version
-    Get-ChildItem "C:\*exe" -Recurse -ErrorAction Ignore | Where-Object Name -Match "^(cl|clang\+\+|cmake|gcc|ninja)\.exe$" | Format-List FullName
+    Write-Output 'Environment'
+    Write-Output '-----------'
+    cmd.exe /c set
+
+    Write-Output ''
+    Write-Output 'Path'
+    Write-Output '-----'
+    $env:Path.split(';')
+
+    Write-Output ''
+    Write-Output 'Root Dir C'
+    Write-Output  '----------'
+    cmd.exe /c dir c:\ /ogn
+
+    Write-Output ''
+    Write-Output 'Root Dir D'
+    Write-Output '----------'
+    cmd.exe /c dir d:\ /ogn
+
+    Write-Output ''
+    Write-Output 'Root Dir E'
+    Write-Output '----------'
+    cmd.exe /c dir d:\ /ogn
+
+    Write-Output ''
+    Write-Output 'Root Dir F'
+    Write-Output '----------'
+    cmd.exe /c dir f:\ /ogn
+
+    Write-Output ''
+    Write-Output 'Program Files'
+    Write-Output '-------------'
+    cmd.exe /c dir "c:\Program Files" /ogn
+
+    Write-Output ''
+    Write-Output 'Program Files (x86)'
+    Write-Output '-------------------'
+    cmd.exe /c dir "c:\Program Files (x86)" /ogn
+
+    Write-Output ''
+    Write-Output 'msys64'
+    Write-Output '-------------'
+    cmd.exe /c dir "c:\msys64" /ogn
+
+    Write-Output ''
+    Write-Output 'Compilers'
+    Write-Output '---------'
+    cmd.exe /c "dir c:\*.exe /s/b | grep -iE ""[\](cl|clang\+\+|cmake|gcc|ninja)\.exe$"""
 }
 
 switch ($Cmd.ToLower()) {
