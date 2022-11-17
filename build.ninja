@@ -35,56 +35,38 @@ build out/x64-win-dbg/app/code-cmake-vcpkg.exe : domsvc out/x64-win-dbg/build.ni
     restat = 1
 
 # a better way
-build x64w2 : domsvc out/x64-win-dbg/build.ninja
-    docmd = amd64 && cd out/x64-win-dbg && ninja -v >build.log
+build w64d : domsvc out/x64-win-dbg/build.ninja
+    docmd = amd64 && cd out/x64-win-dbg && ninja -v >build.log && type build.log
 
-build out/x64-win-tst/app/code-cmake-vcpkg.exe : domsvc out/x64-win-tst/build.ninja
-    docmd = amd64 && cd out/x64-win-tst && ninja -v >build.log
-    restat = 1
+build w64t : domsvc out/x64-win-tst/build.ninja
+    docmd = amd64 && cd out/x64-win-tst && ninja -v >build.log && type build.log
 
-build out/x64-win-rel/app/code-cmake-vcpkg.exe : domsvc out/x64-win-rel/build.ninja
-    docmd = amd64 && cd out/x64-win-rel && ninja >build.log
-    restat = 1
+build w64r : domsvc out/x64-win-rel/build.ninja
+    docmd = amd64 && cd out/x64-win-rel && ninja >build.log && type build.log
 
-build out/x86-win-dbg/app/code-cmake-vcpkg.exe : domsvc out/x86-win-dbg/build.ninja
-    docmd = x86 && cd out/x86-win-dbg && ninja >build.log
-    restat = 1
+build w86d : domsvc out/x86-win-dbg/build.ninja
+    docmd = x86 && cd out/x86-win-dbg && ninja >build.log && type build.log
 
-build out/x86-win-rel/app/code-cmake-vcpkg.exe : domsvc out/x86-win-rel/build.ninja
-    docmd = x86 && cd out/x86-win-rel && ninja >build.log
-    restat = 1
+build w86r : domsvc out/x86-win-rel/build.ninja
+    docmd = x86 && cd out/x86-win-rel && ninja >build.log && type build.log
 
-build out/x64-mclang-dbg/app/code-cmake-vcpkg.exe : docmd out/x64-mclang-dbg/build.ninja
-    docmd = cd out/x64-mclang-dbg && ninja -v >build.log
-    restat = 1
+build m64d : docmd out/x64-mclang-dbg/build.ninja
+    docmd = cd out/x64-mclang-dbg && ninja -v >build.log && type build.log
 
-build out/x64-mclang-rel/app/code-cmake-vcpkg.exe : docmd out/x64-mclang-rel/build.ninja
-    docmd = cd out/x64-mclang-rel && ninja -v >build.log
-    restat = 1
+build m64r : docmd out/x64-mclang-rel/build.ninja
+    docmd = cd out/x64-mclang-rel && ninja -v >build.log && type build.log
 
 # Run the tests
+build out/x64-win-tst/app/code-cmake-vcpkg.exe : phony w64t
+
 build out/x64-win-tst/app/test.log : docmd out/x64-win-tst/app/code-cmake-vcpkg.exe
     docmd = cd out/x64-win-tst/app && code-cmake-vcpkg.exe -r XML -o test.log
     restat = 1
 
 # Shortcut build targets
-build m64d: phony out/x64-mclang-dbg/app/code-cmake-vcpkg.exe
-
-build m64r: phony out/x64-mclang-rel/app/code-cmake-vcpkg.exe
-
-build w64d: phony out/x64-win-dbg/app/code-cmake-vcpkg.exe
-
-build w64r: phony out/x64-win-rel/app/code-cmake-vcpkg.exe
-
-build w64t: phony out/x64-win-tst/app/code-cmake-vcpkg.exe
-
-build w86d: phony out/x86-win-dbg/app/code-cmake-vcpkg.exe
-
-build w86r: phony out/x86-win-rel/app/code-cmake-vcpkg.exe
 
 build test : phony out/x64-win-tst/app/test.log
 
-# High level targets
 build all : phony m64d m64r w64d w64r w64t w86d w86r test
 
 build play: phony m64d m64r

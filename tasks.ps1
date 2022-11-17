@@ -45,8 +45,7 @@ function DoClean {
 }
 
 function DoInstall {
-    ninja.exe all
-    cmd.exe /c cd .\out\x64-win-rel\ && ninja -v
+    ninja.exe w64r
     Copy-Item .\out\x64-win-rel\app\code-cmake-vcpkg.exe $env:BIN_DIR
 }
 
