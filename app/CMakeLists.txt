@@ -5,5 +5,6 @@ target_precompile_headers(code-cmake-vcpkg PUBLIC pch.h)
 target_link_libraries(code-cmake-vcpkg PRIVATE
     Catch2::Catch2 Catch2::Catch2WithMain
     cxxopts::cxxopts
+    fmt::fmt-header-only
     rapidjson
 )

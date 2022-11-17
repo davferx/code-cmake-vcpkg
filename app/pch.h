@@ -116,3 +116,7 @@
 #pragma warning(disable : 4102) // unreferenced label
 #pragma warning(disable : 4189) // local variable is initialized but not referenced
 #endif
+
+#include "cxxopts.hpp"          // https://github.com/jarro2783/cxxopts
+#include "fmt/format.h"         // https://github.com/fmtlib/fmt
+#include "rapidjson/document.h" // https://rapidjson.org/

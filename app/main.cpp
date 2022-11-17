@@ -1,14 +1,5 @@
 ﻿#include "pch.h"
 
-#include "cxxopts.hpp"
-#include "rapidjson/document.h"
-#include "rapidjson/writer.h"
-#include "rapidjson/stringbuffer.h"
-
-// https://github.com/jarro2783/cxxopts
-// https://github.com/catchorg/Catch2
-// http://rapidjson.org/
-
 using namespace std;
 using namespace rapidjson;
 
@@ -32,9 +23,8 @@ namespace internal {
             ("v,verbose", "Verbose output", cxxopts::value<bool>()->default_value("false")) //
             ("h,help", "Print usage");
 
-        cout << "Hello CMake!2" << endl;
-
-        cout << options.help() << endl;
+        fmt::print("Hello {}. The answer is {}\n\n", "VSCode+CMake+VCPkg", 42);
+        fmt::print("{}", options.help());
 
         return 0;
     }

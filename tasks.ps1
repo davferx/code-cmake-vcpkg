@@ -1,21 +1,30 @@
 # Task to be run during the build process
 param(
     [Parameter(Mandatory = $True)]
-    [ValidateSet('build', 'clean', 'cbuild')]
+    [ValidateSet('build', 'cbuild', 'clean', 'install' )]
     [string]$Cmd
 )
 
-function DoBuildInt {
-    $env:Path = "$env:CLANG_ROOT;$env:MSVC_ROOT\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja;$env:Path"
-    Write-Output 'Building'
+function logEnv {
     Write-Output $env:Path.Split(';')
-    Get-Command ninja | Format-List
-    Get-Command clang++ | Format-List
-    Get-Command gcc | Format-List
-    ninja.exe --version
+
+    Get-Command clang++ | Select-Object -ExpandProperty Path
     clang++.exe --version
+
+    Get-Command cmake | Select-Object -ExpandProperty Path
+    cmake --version
+
+    Get-Command gcc | Select-Object -ExpandProperty Path
     gcc.exe --version
 
+    Get-Command ninja | Select-Object -ExpandProperty Path
+    ninja.exe --version
+}
+
+function DoBuildInt {
+    $env:Path = "$env:MSVC_ROOT\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja;$env:Path"
+    Write-Output 'Building'
+    # logEnv
     ninja.exe all
     cmd.exe /c "robocopy out out/artifact code-cmake-vcpkg.exe code-cmake-vcpkg.pdb build.log test.log /S /Z /NDL /XD artifact || echo %errorlevel%"
 }
@@ -35,8 +44,13 @@ function DoClean {
     remove-item out -Recurse -Force -ErrorAction Ignore
 }
 
+function DoInstall {
+    Copy-Item .\out\x64-win-rel\app\code-cmake-vcpkg.exe $env:BIN_DIR
+}
+
 switch ($Cmd.ToLower()) {
     'build' { DoBuild }
     'cbuild' { DoCBuild }
     'clean' { DoClean }
+    'install' { DoInstall }
 }

@@ -9,7 +9,6 @@ on: [push, workflow_dispatch]
 
 env:
   MSVC_ROOT: C:\Program Files\Microsoft Visual Studio\2022\Enterprise
-  CLANG_ROOT: C:\msys64\mingw64\bin
 
 defaults:
   run:
