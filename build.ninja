@@ -34,6 +34,10 @@ build out/x64-win-dbg/app/code-cmake-vcpkg.exe : domsvc out/x64-win-dbg/build.ni
     docmd = amd64 && cd out/x64-win-dbg && ninja -v >build.log
     restat = 1
 
+# a better way
+build x64w2 : domsvc out/x64-win-dbg/build.ninja
+    docmd = amd64 && cd out/x64-win-dbg && ninja -v >build.log
+
 build out/x64-win-tst/app/code-cmake-vcpkg.exe : domsvc out/x64-win-tst/build.ninja
     docmd = amd64 && cd out/x64-win-tst && ninja -v >build.log
     restat = 1
