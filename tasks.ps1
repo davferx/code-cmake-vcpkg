@@ -25,7 +25,7 @@ function DoBuildInt {
     $env:Path = "$env:MSVC_ROOT\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja;$env:Path"
     Write-Output 'Building'
     # logEnv
-    ninja.exe all
+    ninja.exe -v all
     cmd.exe /c "robocopy out out/artifact code-cmake-vcpkg.exe code-cmake-vcpkg.pdb build.log test.log /S /Z /NDL /XD artifact || echo %errorlevel%"
 }
 
@@ -45,7 +45,7 @@ function DoClean {
 }
 
 function DoInstall {
-    ninja.exe w64r
+    ninja.exe -v w64r
     Copy-Item .\out\x64-win-rel\app\code-cmake-vcpkg.exe $env:BIN_DIR
 }
 

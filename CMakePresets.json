@@ -8,14 +8,10 @@
             "binaryDir": "${sourceDir}/out/${presetName}",
             "installDir": "${sourceDir}/out/artifact/${presetName}",
             "cacheVariables": {
-                "CMAKE_C_COMPILER": "cl.exe",
-                "CMAKE_CXX_COMPILER": "cl.exe",
                 "CMAKE_CXX_EXTENSIONS": "OFF",
                 "CMAKE_CXX_STANDARD_REQUIRED": "ON",
                 "CMAKE_CXX_STANDARD": "20",
-                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake",
-                "VCPKG_HOST_TRIPLET": "x64-windows",
-                "VCPKG_TARGET_TRIPLET": "x64-windows"
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake"
             }
         },
         {
@@ -64,6 +60,12 @@
             "name": "windows-base",
             "inherits": "base",
             "hidden": true,
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "cl.exe",
+                "CMAKE_CXX_COMPILER": "cl.exe",
+                "VCPKG_HOST_TRIPLET": "x64-windows",
+                "VCPKG_TARGET_TRIPLET": "x64-windows"
+            },
             "condition": {
                 "type": "equals",
                 "lhs": "${hostSystemName}",

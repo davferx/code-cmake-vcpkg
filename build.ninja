@@ -29,12 +29,7 @@ build out/x64-mclang-dbg/build.ninja : docmd out/. CMakeLists.txt CMakePresets.j
 build out/x64-mclang-rel/build.ninja : docmd out/. CMakeLists.txt CMakePresets.json
     docmd = cmake --preset x64-mclang-rel
 
-# The final exe files
-build out/x64-win-dbg/app/code-cmake-vcpkg.exe : domsvc out/x64-win-dbg/build.ninja
-    docmd = amd64 && cd out/x64-win-dbg && ninja -v >build.log
-    restat = 1
-
-# a better way
+# The exe files
 build w64d : domsvc out/x64-win-dbg/build.ninja
     docmd = amd64 && cd out/x64-win-dbg && ninja -v >build.log && type build.log
 
