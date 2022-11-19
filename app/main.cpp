@@ -23,7 +23,7 @@ namespace internal {
             ("v,verbose", "Verbose output", cxxopts::value<bool>()->default_value("false")) //
             ("h,help", "Print usage");
 
-        fmt::print("xHello {}. The answer is {}\n\n", "VSCode+CMake+VCPkg", 42);
+        fmt::print("Hello {}. The answer is {}\n\n", "World", 42);
         fmt::print("{}", options.help());
 
         return 0;
