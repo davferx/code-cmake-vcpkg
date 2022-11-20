@@ -8,20 +8,20 @@ build out/. : docmd
     docmd = mkdir out || echo directory out exits
 
 # The configuration files
-build out/x64-win-dbg/build.ninja : domsvc out/. CMakeLists.txt CMakePresets.json
-    docmd = amd64 && cmake --preset x64-win-dbg
+build out/x64-msvc-dbg/build.ninja : domsvc out/. CMakeLists.txt CMakePresets.json
+    docmd = amd64 && cmake --preset x64-msvc-dbg
 
-build out/x64-win-tst/build.ninja : domsvc out/. CMakeLists.txt CMakePresets.json
-    docmd = amd64 && cmake --preset x64-win-tst
+build out/x64-msvc-tst/build.ninja : domsvc out/. CMakeLists.txt CMakePresets.json
+    docmd = amd64 && cmake --preset x64-msvc-tst
 
-build out/x64-win-rel/build.ninja : domsvc out/. CMakeLists.txt CMakePresets.json
-    docmd = amd64 && cmake --preset x64-win-rel
+build out/x64-msvc-rel/build.ninja : domsvc out/. CMakeLists.txt CMakePresets.json
+    docmd = amd64 && cmake --preset x64-msvc-rel
 
-build out/x86-win-dbg/build.ninja : domsvc out/. CMakeLists.txt CMakePresets.json
-    docmd = x86 && cmake --preset x86-win-dbg
+build out/x86-msvc-dbg/build.ninja : domsvc out/. CMakeLists.txt CMakePresets.json
+    docmd = x86 && cmake --preset x86-msvc-dbg
 
-build out/x86-win-rel/build.ninja : domsvc out/. CMakeLists.txt CMakePresets.json
-    docmd = x86 && cmake --preset x86-win-rel
+build out/x86-msvc-rel/build.ninja : domsvc out/. CMakeLists.txt CMakePresets.json
+    docmd = x86 && cmake --preset x86-msvc-rel
 
 build out/x64-mclang-dbg/build.ninja : docmd out/. CMakeLists.txt CMakePresets.json
     docmd = cmake --preset x64-mclang-dbg
@@ -30,20 +30,20 @@ build out/x64-mclang-rel/build.ninja : docmd out/. CMakeLists.txt CMakePresets.j
     docmd = cmake --preset x64-mclang-rel
 
 # The exe files
-build w64d : domsvc out/x64-win-dbg/build.ninja
-    docmd = amd64 && cd out/x64-win-dbg && ninja -v >build.log && type build.log
+build w64d : domsvc out/x64-msvc-dbg/build.ninja
+    docmd = amd64 && cd out/x64-msvc-dbg && ninja -v >build.log && type build.log
 
-build w64t : domsvc out/x64-win-tst/build.ninja
-    docmd = amd64 && cd out/x64-win-tst && ninja -v >build.log && type build.log
+build w64t : domsvc out/x64-msvc-tst/build.ninja
+    docmd = amd64 && cd out/x64-msvc-tst && ninja -v >build.log && type build.log
 
-build w64r : domsvc out/x64-win-rel/build.ninja
-    docmd = amd64 && cd out/x64-win-rel && ninja >build.log && type build.log
+build w64r : domsvc out/x64-msvc-rel/build.ninja
+    docmd = amd64 && cd out/x64-msvc-rel && ninja >build.log && type build.log
 
-build w86d : domsvc out/x86-win-dbg/build.ninja
-    docmd = x86 && cd out/x86-win-dbg && ninja >build.log && type build.log
+build w86d : domsvc out/x86-msvc-dbg/build.ninja
+    docmd = x86 && cd out/x86-msvc-dbg && ninja >build.log && type build.log
 
-build w86r : domsvc out/x86-win-rel/build.ninja
-    docmd = x86 && cd out/x86-win-rel && ninja >build.log && type build.log
+build w86r : domsvc out/x86-msvc-rel/build.ninja
+    docmd = x86 && cd out/x86-msvc-rel && ninja >build.log && type build.log
 
 build m64d : docmd out/x64-mclang-dbg/build.ninja
     docmd = cd out/x64-mclang-dbg && ninja -v >build.log && type build.log
@@ -52,15 +52,15 @@ build m64r : docmd out/x64-mclang-rel/build.ninja
     docmd = cd out/x64-mclang-rel && ninja -v >build.log && type build.log
 
 # Run the tests
-build out/x64-win-tst/app/code-cmake-vcpkg.exe : phony w64t
+build out/x64-msvc-tst/app/code-cmake-vcpkg.exe : phony w64t
 
-build out/x64-win-tst/app/test.log : docmd out/x64-win-tst/app/code-cmake-vcpkg.exe
-    docmd = cd out/x64-win-tst/app && code-cmake-vcpkg.exe -r XML -o test.log
+build out/x64-msvc-tst/app/test.log : docmd out/x64-msvc-tst/app/code-cmake-vcpkg.exe
+    docmd = cd out/x64-msvc-tst/app && code-cmake-vcpkg.exe -r XML -o test.log
     restat = 1
 
 # Shortcut build targets
 
-build test : phony out/x64-win-tst/app/test.log
+build test : phony out/x64-msvc-tst/app/test.log
 
 build all : phony m64d m64r w64d w64r w64t w86d w86r test
 

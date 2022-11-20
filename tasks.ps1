@@ -46,7 +46,7 @@ function DoClean {
 
 function DoInstall {
     ninja.exe -v w64r
-    Copy-Item .\out\x64-win-rel\app\code-cmake-vcpkg.exe $env:BIN_DIR
+    Copy-Item .\out\x64-msvc-rel\app\code-cmake-vcpkg.exe $env:BIN_DIR
 }
 
 switch ($Cmd.ToLower()) {

@@ -44,7 +44,6 @@
 #include <deque>
 #include <exception>
 #include <execution>
-#include <expected>
 #include <filesystem>
 // #include <format> not supported on clang or gcc
 #include <forward_list>
@@ -82,7 +81,6 @@
 #include <shared_mutex>
 #include <source_location>
 #include <span>
-#include <spanstream>
 #include <sstream>
 #include <stack>
 #include <stdexcept>

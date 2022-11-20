@@ -7,11 +7,83 @@
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/out/${presetName}",
             "installDir": "${sourceDir}/out/artifact/${presetName}",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
             "cacheVariables": {
                 "CMAKE_CXX_EXTENSIONS": "OFF",
                 "CMAKE_CXX_STANDARD_REQUIRED": "ON",
                 "CMAKE_CXX_STANDARD": "20",
                 "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake"
+            }
+        },
+        {
+            "name": "msvc-base",
+            "inherits": "base",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "cl.exe",
+                "CMAKE_CXX_COMPILER": "cl.exe",
+                "VCPKG_HOST_TRIPLET": "x64-windows",
+                "VCPKG_TARGET_TRIPLET": "x64-windows"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        },
+        {
+            "name": "x64-msvc-dbg",
+            "displayName": "x64 MsVc Debug",
+            "inherits": "msvc-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "MY_CXX_FLAGS": "/Wall /WX /wd4710 /wd4711 /D_DEBUG"
+            }
+        },
+        {
+            "name": "x64-msvc-tst",
+            "displayName": "x64 MsVc Test",
+            "inherits": "msvc-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "MY_CXX_FLAGS": "/Wall /WX /wd4710 /wd4711 /D_DEBUG /DTEST_BUILD",
+                "MY_TEST_BUILD": "ON"
+            }
+        },
+        {
+            "name": "x64-msvc-rel",
+            "displayName": "x64 MsVc Release",
+            "inherits": "x64-msvc-dbg",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "MY_CXX_FLAGS": "/Wall /WX /wd4710 /wd4711 /DNDEBUG"
+            }
+        },
+        {
+            "name": "x86-msvc-dbg",
+            "displayName": "x86 MsVc Debug",
+            "inherits": "msvc-base",
+            "architecture": {
+                "value": "x86",
+                "strategy": "external"
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "MY_CXX_FLAGS": "/Wall /WX /wd4710 /wd4711 /D_DEBUG",
+                "VCPKG_HOST_TRIPLET": "x86-windows",
+                "VCPKG_TARGET_TRIPLET": "x86-windows"
+            }
+        },
+        {
+            "name": "x86-msvc-rel",
+            "displayName": "x86 MsVc Release",
+            "inherits": "x86-msvc-dbg",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "MY_CXX_FLAGS": "/Wall /WX /wd4710 /wd4711 /DNDEBUG"
             }
         },
         {
@@ -34,10 +106,6 @@
             "name": "x64-mclang-dbg",
             "displayName": "x64 MinGW Clang Dynamic Debug",
             "inherits": "mingw-base",
-            "architecture": {
-                "value": "x64",
-                "strategy": "external"
-            },
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
                 "MY_CXX_FLAGS": "-pedantic -Wall -Werror -D_DEBUG"
@@ -47,91 +115,9 @@
             "name": "x64-mclang-rel",
             "displayName": "x64 MinGW Clang Dynamic Release",
             "inherits": "mingw-base",
-            "architecture": {
-                "value": "x64",
-                "strategy": "external"
-            },
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
                 "MY_CXX_FLAGS": "-g -pedantic -Wall -Werror -DNDEBUG"
-            }
-        },
-        {
-            "name": "windows-base",
-            "inherits": "base",
-            "hidden": true,
-            "cacheVariables": {
-                "CMAKE_C_COMPILER": "cl.exe",
-                "CMAKE_CXX_COMPILER": "cl.exe",
-                "VCPKG_HOST_TRIPLET": "x64-windows",
-                "VCPKG_TARGET_TRIPLET": "x64-windows"
-            },
-            "condition": {
-                "type": "equals",
-                "lhs": "${hostSystemName}",
-                "rhs": "Windows"
-            }
-        },
-        {
-            "name": "x64-win-dbg",
-            "displayName": "x64 Windows Debug",
-            "inherits": "windows-base",
-            "architecture": {
-                "value": "x64",
-                "strategy": "external"
-            },
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "MY_CXX_FLAGS": "/Wall /WX /wd4710 /wd4711 /D_DEBUG"
-            }
-        },
-        {
-            "name": "x64-win-tst",
-            "displayName": "x64 Windows Test",
-            "inherits": "windows-base",
-            "architecture": {
-                "value": "x64",
-                "strategy": "external"
-            },
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "MY_CXX_FLAGS": "/Wall /WX /wd4710 /wd4711 /D_DEBUG /DTEST_BUILD",
-                "MY_TEST_BUILD": "ON"
-            }
-        },
-        {
-            "name": "x64-win-rel",
-            "displayName": "x64 Windows Release",
-            "inherits": "x64-win-dbg",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release",
-                "MY_CXX_FLAGS": "/Wall /WX /wd4710 /wd4711 /DNDEBUG"
-            }
-        },
-        {
-            "name": "x86-win-dbg",
-            "displayName": "x86 Windows Debug",
-            "inherits": "windows-base",
-            "architecture": {
-                "value": "x86",
-                "strategy": "external"
-            },
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "MY_CXX_FLAGS": "/Wall /WX /wd4710 /wd4711 /D_DEBUG",
-                "VCPKG_HOST_TRIPLET": "x86-windows",
-                "VCPKG_TARGET_TRIPLET": "x86-windows"
-            }
-        },
-        {
-            "name": "x86-win-rel",
-            "displayName": "x86 Windows Release",
-            "inherits": "x86-win-dbg",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release",
-                "MY_CXX_FLAGS": "/Wall /WX /wd4710 /wd4711 /DNDEBUG",
-                "VCPKG_HOST_TRIPLET": "x86-windows",
-                "VCPKG_TARGET_TRIPLET": "x86-windows"
             }
         }
     ]
