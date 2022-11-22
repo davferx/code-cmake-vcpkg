@@ -3,7 +3,10 @@
 add_executable(code-cmake-vcpkg main.cpp)
 target_precompile_headers(code-cmake-vcpkg PUBLIC pch.h)
 target_link_libraries(code-cmake-vcpkg PRIVATE
-    Catch2::Catch2 Catch2::Catch2WithMain
+    # GTest::gmock 
+    # GTest::gmock_main 
+    GTest::gtest 
+    GTest::gtest_main
     cxxopts::cxxopts
     fmt::fmt-header-only
     rapidjson

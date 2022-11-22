@@ -1,5 +1,5 @@
 {
     "name": "code-cmake-vcpkg",
     "version-string": "0.1.0",
-    "dependencies": ["catch2", "cxxopts", "fmt", "rapidjson"]
+    "dependencies": [ "cxxopts", "fmt", "gtest", "rapidjson" ]
 }

@@ -55,7 +55,7 @@ build m64r : docmd out/x64-mclang-rel/build.ninja
 build out/x64-msvc-tst/app/code-cmake-vcpkg.exe : phony w64t
 
 build out/x64-msvc-tst/app/test.log : docmd out/x64-msvc-tst/app/code-cmake-vcpkg.exe
-    docmd = cd out/x64-msvc-tst/app && code-cmake-vcpkg.exe -r XML -o test.log
+    docmd = cd out/x64-msvc-tst/app && code-cmake-vcpkg.exe --gtest_output=json:test.log || echo test done
     restat = 1
 
 # Shortcut build targets
