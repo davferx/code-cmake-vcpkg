@@ -105,6 +105,8 @@
 
 #pragma warning(pop)
 
+#pragma warning(disable : 4514) // Unreferenced inline function has been removed
+#pragma warning(disable : 4820) // Padding added after data member
 #pragma warning(disable : 4868) // compiler may not enforce left-to-right evaluation order in braced initializer list
 #pragma warning(disable : 5045) // Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
 

@@ -36,7 +36,7 @@
         },
         {
             "name": "x64-msvc-dbg",
-            "displayName": "x64 MsVc Debug",
+            "displayName": "_x64 MsVc Debug",
             "inherits": "msvc-base",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
